@@ -27,3 +27,54 @@ function fetchProductsThen() {
   
   // Call the function when the page loads
   fetchProductsThen();
+
+  // Task 3
+  // Function to fetch products using async/await
+async function fetchProductsAsync() {
+    const url = 'https://www.course-api.com/javascript-store-products';
+    
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const products = await response.json();
+      displayProducts(products); // Call the helper function to display products
+    } catch (error) {
+      handleError(error); // Pass error to handleError function
+    }
+  }
+  
+  // Helper function to display products on the page
+  function displayProducts(products) {
+    const productList = document.getElementById('product-list');
+    productList.innerHTML = ''; // Clear previous products
+  
+    products.forEach(product => {
+      const productItem = document.createElement('div');
+      productItem.classList.add('product-item');
+      
+      const productImage = document.createElement('img');
+      productImage.src = product.imageUrl;
+      productItem.appendChild(productImage);
+      
+      const productTitle = document.createElement('h3');
+      productTitle.textContent = product.name;
+      productItem.appendChild(productTitle);
+      
+      const productDescription = document.createElement('p');
+      productDescription.textContent = product.description;
+      productItem.appendChild(productDescription);
+  
+      productList.appendChild(productItem); // Add the product item to the product list
+    });
+  }
+  
+  // Function to handle errors
+  function handleError(error) {
+    console.error('Error:', error);
+    alert('There was an error fetching the products. Please try again later.');
+  }
+  
+  // Call the function when the page loads
+  fetchProductsAsync();
