@@ -111,3 +111,9 @@ function displayProducts(products) {
       productContainer.appendChild(productItem);
     });
   }
+
+  // Task 5 
+  // Function to handle errors
+function handleError(error) {
+    console.error('An error occurred: ', error.message); // Log the error message
+  }
