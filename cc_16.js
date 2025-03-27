@@ -1,22 +1,22 @@
 // Task 2
 // Function to fetch products using .then()
 function fetchProductsThen() {
-    // URL to fetch data from
+
     const url = 'https://www.course-api.com/javascript-store-products';
     
     // Fetch data using fetch() API
     fetch(url)
       .then(response => {
-        // Check if the response is okay (status 200-299)
+
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json(); // Parse JSON from response
+        return response.json();
       })
       .then(data => {
-        // Log each product's name to the console
+      
         data.forEach(product => {
-          console.log(product.name);
+          console.log(product.fields.name);
         });
       })
       .catch(error => {
@@ -25,7 +25,6 @@ function fetchProductsThen() {
       });
   }
   
-  // Call the function when the page loads
   fetchProductsThen();
 
   // Task 3
@@ -39,16 +38,15 @@ async function fetchProductsAsync() {
         throw new Error('Network response was not ok');
       }
       const products = await response.json();
-      displayProducts(products); // Call the helper function to display products
+      displayProducts(products); 
     } catch (error) {
-      handleError(error); // Pass error to handleError function
+      handleError(error); 
     }
   }
   
-  // Helper function to display products on the page
   function displayProducts(products) {
     const productList = document.getElementById('product-list');
-    productList.innerHTML = ''; // Clear previous products
+    productList.innerHTML = ''; // Clear previous products entries 
   
     products.forEach(product => {
       const productItem = document.createElement('div');
@@ -66,48 +64,42 @@ async function fetchProductsAsync() {
       productDescription.textContent = product.description;
       productItem.appendChild(productDescription);
   
-      productList.appendChild(productItem); // Add the product item to the product list
+      productList.appendChild(productItem); // Adding product item to the product list
     });
   }
   
-  // Function to handle errors
   function handleError(error) {
     console.error('Error:', error);
     alert('There was an error fetching the products. Please try again later.');
   }
   
-  // Call the function when the page loads
   fetchProductsAsync();
 
   // Task 4 
-  // Function to display products (first 5 products)
+  // Function to display products
 function displayProducts(products) {
     const productContainer = document.getElementById('product-container');
     productContainer.innerHTML = ''; // Clear any previous products
     
     // Loop through the first 5 products
     products.slice(0, 5).forEach(product => {
-      // Create product element
+  
       const productItem = document.createElement('div');
       productItem.classList.add('product-item');
       
-      // Product image
       const productImage = document.createElement('img');
       productImage.src = product.imageUrl;
       productImage.alt = product.name;
       productItem.appendChild(productImage);
   
-      // Product name
       const productName = document.createElement('h3');
       productName.textContent = product.name;
       productItem.appendChild(productName);
   
-      // Product price
       const productPrice = document.createElement('p');
-      productPrice.textContent = `$${product.price.toFixed(2)}`; // Assuming price is a number
+      productPrice.textContent = `$${product.price.toFixed(2)}`; 
       productItem.appendChild(productPrice);
   
-      // Append product to container
       productContainer.appendChild(productItem);
     });
   }
@@ -115,7 +107,7 @@ function displayProducts(products) {
   // Task 5 
   // Function to handle errors
 function handleError(error) {
-    console.error('An error occurred: ', error.message); // Log the error message
+    console.error('An error occurred: ', error?.message || error); // Log the error message
   }
 
   // Task 6
